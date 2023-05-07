@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
 end
 
 class Comment < ActiveRecord::Base
+	
+	
 end
 
 before do
@@ -21,7 +23,7 @@ end
 
 
 get '/' do
-	@posts = Post.order('created_at DESC')
+	@posts = Post.all
 	erb :index
 end
 
@@ -35,7 +37,7 @@ post '/newPost' do
 	@p = Post.new params[:post]
 	@p.save
 	if @p.save 
-		erb "Your new post has been added successfully"
+		erb :index
 	else
 		@error = @p.errors.full_messages.first
 		erb :newPost
@@ -49,7 +51,7 @@ get '/details/:post_id' do
   end
 
 post '/details/:post_id' do
-@c = Comment.new params[:comment]
+	@c = Comment.new params[:comment]
 	if @c.save
 		erb "Thanks. You've been enrolled now"
 	else

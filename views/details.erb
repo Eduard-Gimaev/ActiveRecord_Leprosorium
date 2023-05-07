@@ -1,10 +1,13 @@
 <h2>Post details:</h2>
 
-<p> 
-    <%= @post['postText'] %>
+<p>
+<%= @post['postText'] %>
         <br />
         <span style ="font-size:75%; color:#999"> Added at <%= @post['created_at'] %></span>
         <br />
+</p> 
+    
+
 <h4>Comments:</h4>
 <%@comments.each do |x|%>
 <p>
@@ -22,5 +25,7 @@
     <button type="submit" class="btn btn-primary">Add comment</button>
     <br><br />
     <textarea name="comment[commentText]" class="form-control" rows="6" placeholder="type comment text here"></textarea>
+    <input name="comment[post_id]" type="text" class="form-control" placeholder="Please, choose your date and time" value = "<%= @post['id'] %>">
+  
     </form>
 </p>
