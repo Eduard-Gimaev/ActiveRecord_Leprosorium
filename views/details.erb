@@ -1,0 +1,26 @@
+<h2>Post details:</h2>
+
+<p> 
+    <%= @post['postText'] %>
+        <br />
+        <span style ="font-size:75%; color:#999"> Added at <%= @post['created_at'] %></span>
+        <br />
+<h4>Comments:</h4>
+<%@comments.each do |x|%>
+<p>
+    <%= x['commentText'] %>
+    <br />
+    <span style ="font-size:75%; color:#999"> Added at <%= x['created_at'] %></span>
+    <br />
+</p>
+    <hr />
+<%end%>
+
+<p>
+    <form action="/details/<%= @post['id'] %>" method="POST">
+
+    <button type="submit" class="btn btn-primary">Add comment</button>
+    <br><br />
+    <textarea name="comment[commentText]" class="form-control" rows="6" placeholder="type comment text here"></textarea>
+    </form>
+</p>

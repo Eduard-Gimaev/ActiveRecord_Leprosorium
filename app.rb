@@ -21,27 +21,41 @@ end
 
 
 get '/' do
+	@posts = Post.order('created_at DESC')
 	erb :index
 end
 
 get '/newPost' do
+	@p = Post.new 
 	erb :newPost
 
 end
 
 post '/newPost' do
-	p = Post.new params[:post]
-	p.save
-	if p.save 
+	@p = Post.new params[:post]
+	@p.save
+	if @p.save 
 		erb "Your new post has been added successfully"
 	else
-		p.errors.full_messages.first
+		@error = @p.errors.full_messages.first
 		erb :newPost
 	end
 end
 
 get '/details/:post_id' do
 	@post = Post.find(params[:post_id])
-
-	erb :newComment
+	
+	erb :details
   end
+
+post '/details/:post_id' do
+@c = Comment.new params[:comment]
+	if @c.save
+		erb "Thanks. You've been enrolled now"
+	else
+		@error = @c.errors.full_messages.first
+		erb :details
+	end
+end
+
+  
